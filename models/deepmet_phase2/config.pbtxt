@@ -1,41 +1,45 @@
-# deepmet has two versions:
-# 1 is for the resolution tune
-# 2 is for the response tune
-
 name: "deepmet_phase2"
 platform: "tensorflow_graphdef"
+version_policy {
+  all {
+  }
+}
 max_batch_size: 100
-input [
-  {
-    name: "input"
-    data_type: TYPE_FP32
-    dims: [ 12500, 8 ]
-  },
-  {
-    name: "input_cat0"
-    data_type: TYPE_FP32
-    dims: [ 12500, 1 ]
-  },
-  {
-    name: "input_cat1"
-    data_type: TYPE_FP32
-    dims: [ 12500, 1 ]
-  },
-  {
-    name: "input_cat2"
-    data_type: TYPE_FP32
-    dims: [ 12500, 1 ]
-  }
-]
-output [
-  {
-    name: "output/BiasAdd"
-    data_type: TYPE_FP32
-    dims: [ 2 ]
-  }
-]
-
-version_policy: { all { }}
+input [{
+  name: "input"
+  data_type: TYPE_FP32
+  dims: [12500, 8]
+}, {
+  name: "input_cat0"
+  data_type: TYPE_FP32
+  dims: [12500, 1]
+}, {
+  name: "input_cat1"
+  data_type: TYPE_FP32
+  dims: [12500, 1]
+}, {
+  name: "input_cat2"
+  data_type: TYPE_FP32
+  dims: [12500, 1]
+}]
+output [{
+  name: "output/BiasAdd"
+  data_type: TYPE_FP32
+  dims: [2]
+}]
 dynamic_batching {
-    preferred_batch_size: [ 8, 16 ]
+  preferred_batch_size: [8, 16]
+}
+model_repository_agents {
+  agents [{
+    name: "checksum"
+    parameters {
+      key: "MD5:1/model.graphdef"
+      value: "e9447af8b98a673b799842d054111c36"
+    }
+    parameters {
+      key: "MD5:2/model.graphdef"
+      value: "4c189e3602794baee4bb262509523ef4"
+    }
+  }]
 }
